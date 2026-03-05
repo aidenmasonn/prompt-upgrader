@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
-import { embed, upgradePrompt } from '@/lib/gemini'
+import { embed } from '@/lib/gemini'
 import type { QAMatch } from '@/lib/gemini'
+import { upgradePromptWithClaude } from '@/lib/claude'
 
 export async function POST(req: NextRequest) {
   try {
@@ -28,8 +29,8 @@ export async function POST(req: NextRequest) {
       throw new Error(`Supabase RPC error: ${error.message}`)
     }
 
-    // Rewrite the prompt using the rubric + retrieved context
-    const result = await upgradePrompt(prompt, (matches ?? []) as QAMatch[])
+    // Rewrite the prompt using Claude Opus 4.6 with the rubric + retrieved context
+    const result = await upgradePromptWithClaude(prompt, (matches ?? []) as QAMatch[])
 
     return NextResponse.json(result)
   } catch (err: unknown) {

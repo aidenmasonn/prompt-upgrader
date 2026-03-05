@@ -9,9 +9,11 @@
     "lint": "next lint",
     "smoke": "tsx scripts/smoke-test.ts",
     "diagnostic": "tsx scripts/retrieval-diagnostic.ts",
-    "eval": "tsx scripts/eval.ts"
+    "eval": "tsx scripts/eval.ts",
+    "import-mymind": "tsx scripts/import-mymind.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
     "@google/generative-ai": "^0.21.0",
     "@supabase/supabase-js": "^2.47.0",
     "dotenv": "^17.3.1",
